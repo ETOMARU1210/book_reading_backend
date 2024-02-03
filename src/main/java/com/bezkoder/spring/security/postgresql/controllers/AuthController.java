@@ -55,7 +55,7 @@ public class AuthController {
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 	  
 	  if (!(userRepository.existsByUsernameAndPassword(loginRequest.getUsername(), loginRequest.getPassword()))) {
-	      return ResponseEntity.badRequest().body(new MessageResponse("ユーザーネームかメールアドレスがすでに存在しています"));
+	      return ResponseEntity.badRequest().body(new MessageResponse("ユーザーネームかメールアドレスが間違っています"));
 	    }
 
     Authentication authentication = authenticationManager
