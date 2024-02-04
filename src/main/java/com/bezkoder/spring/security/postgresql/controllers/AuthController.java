@@ -52,11 +52,11 @@ public class AuthController {
   JwtUtils jwtUtils;
 
   @PostMapping("/signin")
-  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) throws Exception {
 	  
-	  if (!(userRepository.existsByUsernameAndPassword(loginRequest.getUsername(), loginRequest.getPassword()))) {
-	      return ResponseEntity.badRequest().body(new MessageResponse("ユーザーネームかメールアドレスが間違っています"));
-	    }
+  	if (!(userRepository.existsByUsernameAndPassword(loginRequest.getUsername(), loginRequest.getPassword()))) {
+      return ResponseEntity.badRequest().body(new MessageResponse("ユーザーネームかメールアドレスが間違っています"));
+    }
 
     Authentication authentication = authenticationManager
         .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
