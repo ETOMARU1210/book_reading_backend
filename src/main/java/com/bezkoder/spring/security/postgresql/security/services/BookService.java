@@ -12,6 +12,7 @@ import com.bezkoder.spring.security.postgresql.models.Book;
 import com.bezkoder.spring.security.postgresql.models.User;
 import com.bezkoder.spring.security.postgresql.payload.request.BookRequest;
 import com.bezkoder.spring.security.postgresql.payload.request.StatusCompleteRequest;
+import com.bezkoder.spring.security.postgresql.payload.response.MessageResponse;
 import com.bezkoder.spring.security.postgresql.repository.BookRepository;
 import com.bezkoder.spring.security.postgresql.repository.UserRepository;
 
@@ -25,14 +26,14 @@ public class BookService {
 	@Autowired
 	private BookRepository bookRepository;
 
-	public void create(BookRequest bookRequest) {
+	public MessageResponse create(BookRequest bookRequest) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		if (principal instanceof UserDetails) {
 			long userId = ((UserDetailsImpl) principal).getId();
 			Optional<User> user = userRepository.findById(userId);
 			if (bookRepository.existsByUserAndIsbn(user, bookRequest.getIsbn())) {
-				return;
+				return new MessageResponse("すでに本は登録されています");
 			}
 		}
 		
@@ -64,6 +65,7 @@ public class BookService {
 			book.setUser(user);
 			bookRepository.save(book);
 		}
+		return null;
 	}
 
 	public List<Book> allUnStatusBooks(String status) {
@@ -98,7 +100,7 @@ public class BookService {
 		}
 	}
 
-	public void statusCompleteUpdate(StatusCompleteRequest statusCompleteRequest) {
+	public Book statusCompleteUpdate(StatusCompleteRequest statusCompleteRequest) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		if (principal instanceof UserDetails) {
@@ -106,8 +108,9 @@ public class BookService {
 			Optional<User> user = userRepository.findById(userId);
 			Book statusUpdateBook = bookRepository.findByUserAndIsbn(user, statusCompleteRequest.getIsbn());
 			statusUpdateBook.setStatus("読了");
-			bookRepository.save(statusUpdateBook);
+			return bookRepository.save(statusUpdateBook);
 		}
+		return null;
 	}
 
 	public List<Book> allBooks() {
