@@ -16,7 +16,6 @@ PostgresSQL
 
 # 必要なライブラリ
 * Spring Boot
-* Java
 * Spring-Data-Jpa
 * Spring Security
 * Spring Web
