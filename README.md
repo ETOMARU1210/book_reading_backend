@@ -15,12 +15,12 @@
 PostgresSQL
 
 # 必要なライブラリ
-Spring Boot
-Java
-Spring-Data-Jpa
-Spring Security
-Spring Web
-PostgreSql-Driver
+* Spring Boot
+* Java
+* Spring-Data-Jpa
+* Spring Security
+* Spring Web
+* PostgreSql-Driver
 
 # フロントエンドのプログラム
 https://github.com/ETOMARU1210/book_reading_frontend
