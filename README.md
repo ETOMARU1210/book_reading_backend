@@ -1,130 +1,137 @@
-# Spring Boot, Spring Security, PostgreSQL: JWT Authentication & Authorization example
+# [読書管理アプリ(フロントエンド)](https://github.com/ETOMARU1210/book_reading_backend.git)
 
-## User Registration, User Login and Authorization process.
-The diagram shows flow of how we implement User Registration, User Login and Authorization process.
+私は本を読むこどがあるのだが、読み終わったときにどんな本を読んだのかどのくらい読んだのか、読んだ本の値段の合計などを知りたいと思ったことがあった。そのような管理できるアプリがあれば自分はこのぐらいの本を読んだのかを可視化できるため、モチベーションにつながり、達成感を味わえるのではないかと思って作った。
 
-![spring-boot-spring-security-postgresql-jwt-authentication-flow](spring-boot-spring-security-postgresql-jwt-authentication-flow.png)
+# デモ動画
 
-## Spring Boot Server Architecture with Spring Security
-You can have an overview of our Spring Boot Server with the diagram below:
+- 読書管理アプリ.gif
+- 読書管理アプリ.mp4
 
-![spring-boot-spring-security-postgresql-jwt-authentication-architecture](spring-boot-spring-security-postgresql-jwt-authentication-architecture.png)
+# 特徴
 
-## Configure Spring Datasource, JPA, App properties
-Open `src/main/resources/application.properties`
+どの本をどのくらいの読み、どのくらいの値段分読んだのかを見ることができる。本を読むことでお金が増えている感覚を得られ、達成感を味わうので本を読むモチベーションを高める
 
+# インストールするもの(Maven)
+
+```bash
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.1.0</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.bezkoder</groupId>
+	<artifactId>spring-boot-security-postgresql</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>spring-boot-security-postgresql</name>
+	<description>Spring Boot, Spring Security, PostgreSQL: JWT Authentication
+		&amp; Authorization example</description>
+
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>0.11.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>0.11.5</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>0.11.5</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>
 ```
-spring.datasource.url= jdbc:postgresql://localhost:5432/testdb
-spring.datasource.username= postgres
-spring.datasource.password= 123
 
-spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation= true
-spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.PostgreSQLDialect
+# 実行方法
 
-# Hibernate ddl auto (create, create-drop, validate, update)
-spring.jpa.hibernate.ddl-auto= update
+総合開発環境 Eclipse ダウンロード(Java)
+git clone は eclipse で行う
+pom.xml を右クリック → 実行 →Maven install からダウンロード
 
-# App Properties
-bezkoder.app.jwtSecret= ======================BezKoder=Spring===========================
-bezkoder.app.jwtExpirationMs= 86400000
+```bash
+git clone https://github.com/ETOMARU1210/book_reading_frontend.git
+EclipseのBootダッシュボードからlocalにあるbook_reading_backendを起動するかプロジェクトから実行
 ```
 
-## Run Spring Boot application
-```
-mvn spring-boot:run
-```
+# 著者
 
-## Run following SQL insert statements
-```
-INSERT INTO roles(name) VALUES('ROLE_USER');
-INSERT INTO roles(name) VALUES('ROLE_MODERATOR');
-INSERT INTO roles(name) VALUES('ROLE_ADMIN');
-```
+- ETOMARU1210
+- inori0218adt@gmail.com
 
-For more detail, please visit:
-> [Spring Boot, Spring Security, PostgreSQL: JWT Authentication & Authorization example](https://bezkoder.com/spring-boot-security-postgresql-jwt-authentication/)
+# ライセンス
 
-> [For MySQL](https://bezkoder.com/spring-boot-jwt-authentication/)
+ライセンスを明示する
 
-> [For MongoDB](https://bezkoder.com/spring-boot-jwt-auth-mongodb/)
-
-## Refresh Token
-
-![spring-boot-refresh-token-jwt-example-flow](spring-boot-refresh-token-jwt-example-flow.png)
-
-For instruction: [Spring Boot Refresh Token with JWT example](https://bezkoder.com/spring-boot-refresh-token-jwt/)
-
-## More Practice:
-> [Spring Boot File upload example with Multipart File](https://bezkoder.com/spring-boot-file-upload/)
-
-> [Exception handling: @RestControllerAdvice example in Spring Boot](https://bezkoder.com/spring-boot-restcontrolleradvice/)
-
-> [Spring Boot Repository Unit Test with @DataJpaTest](https://bezkoder.com/spring-boot-unit-test-jpa-repo-datajpatest/)
-
-> [Spring Boot Rest Controller Unit Test with @WebMvcTest](https://www.bezkoder.com/spring-boot-webmvctest/)
-
-> [Spring Boot Pagination & Sorting example](https://www.bezkoder.com/spring-boot-pagination-sorting-example/)
-
-> Validation: [Spring Boot Validate Request Body](https://www.bezkoder.com/spring-boot-validate-request-body/)
-
-> Documentation: [Spring Boot and Swagger 3 example](https://www.bezkoder.com/spring-boot-swagger-3/)
-
-> Caching: [Spring Boot Redis Cache example](https://www.bezkoder.com/spring-boot-redis-cache-example/)
-
-Associations:
-> [Spring Boot One To Many example with Spring JPA, Hibernate](https://www.bezkoder.com/jpa-one-to-many/)
-
-> [Spring Boot Many To Many example with Spring JPA, Hibernate](https://www.bezkoder.com/jpa-many-to-many/)
-
-> [JPA One To One example with Spring Boot](https://www.bezkoder.com/jpa-one-to-one/)
-
-## Fullstack Authentication
-
-> [Spring Boot + Vue.js JWT Authentication](https://bezkoder.com/spring-boot-vue-js-authentication-jwt-spring-security/)
-
-> [Spring Boot + Angular 8 JWT Authentication](https://bezkoder.com/angular-spring-boot-jwt-auth/)
-
-> [Spring Boot + Angular 10 JWT Authentication](https://bezkoder.com/angular-10-spring-boot-jwt-auth/)
-
-> [Spring Boot + Angular 11 JWT Authentication](https://bezkoder.com/angular-11-spring-boot-jwt-auth/)
-
-> [Spring Boot + Angular 12 JWT Authentication](https://www.bezkoder.com/angular-12-spring-boot-jwt-auth/)
-
-> [Spring Boot + Angular 13 JWT Authentication](https://www.bezkoder.com/angular-13-spring-boot-jwt-auth/)
-
-> [Spring Boot + Angular 14 JWT Authentication](https://www.bezkoder.com/angular-14-spring-boot-jwt-auth/)
-
-> [Spring Boot + Angular 15 JWT Authentication](https://www.bezkoder.com/angular-15-spring-boot-jwt-auth/)
-
-> [Spring Boot + Angular 16 JWT Authentication](https://www.bezkoder.com/angular-16-spring-boot-jwt-auth/)
-
-> [Spring Boot + React JWT Authentication](https://bezkoder.com/spring-boot-react-jwt-auth/)
-
-## Fullstack CRUD App
-
-> [Vue.js + Spring Boot + PostgreSQL example](https://www.bezkoder.com/spring-boot-vue-js-postgresql/)
-
-> [Angular 8 + Spring Boot + PostgreSQL example](https://bezkoder.com/angular-spring-boot-postgresql/)
-
-> [Angular 10 + Spring Boot + PostgreSQL example](https://bezkoder.com/angular-10-spring-boot-postgresql/)
-
-> [Angular 11 + Spring Boot + PostgreSQL example](https://bezkoder.com/angular-11-spring-boot-postgresql/)
-
-> [Angular 12 + Spring Boot + PostgreSQL example](https://www.bezkoder.com/angular-12-spring-boot-postgresql/)
-
-> [Angular 13 + Spring Boot + PostgreSQL example](https://www.bezkoder.com/spring-boot-angular-13-postgresql/)
-
-> [Angular 14 + Spring Boot + PostgreSQL example](https://www.bezkoder.com/spring-boot-angular-14-postgresql/)
-
-> [Angular 15 + Spring Boot + PostgreSQL example](https://www.bezkoder.com/spring-boot-angular-15-postgresql/)
-
-> [Angular 16 + Spring Boot + PostgreSQL example](https://www.bezkoder.com/spring-boot-angular-16-postgresql/)
-
-> [React + Spring Boot + PostgreSQL example](https://bezkoder.com/spring-boot-react-postgresql/)
-
-Run both Back-end & Front-end in one place:
-> [Integrate Angular with Spring Boot Rest API](https://bezkoder.com/integrate-angular-spring-boot/)
-
-> [Integrate React.js with Spring Boot Rest API](https://bezkoder.com/integrate-reactjs-spring-boot/)
-
-> [Integrate Vue.js with Spring Boot Rest API](https://bezkoder.com/integrate-vue-spring-boot/)
+@ 2024 ETOMARU1210
