@@ -11,9 +11,9 @@ primary_region = 'nrt'
 
   [build.args]
     BPE_APPEND_JAVA_TOOL_OPTIONS = '-XX:ReservedCodeCacheSize=30M -Xss256k'
-    BPE_BPL_JVM_THREAD_COUNT = '30'
+    BPE_BPL_JVM_THREAD_COUNT = '3'
     BPE_DELIM_JAVA_TOOL_OPTIONS = ' '
-    BPE_SERVER_TOMCAT_THREADS_MAX = '10'
+    BPE_SERVER_TOMCAT_THREADS_MAX = '3'
     BP_JVM_VERSION = '17'
 
 [http_service]
