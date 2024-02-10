@@ -32,7 +32,7 @@ import com.bezkoder.spring.security.postgresql.security.services.UserDetailsImpl
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -53,9 +53,10 @@ public class AuthController {
 	
 
 	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) throws Exception {
+	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
-		System.out.println(loginRequest);
+		System.out.println(loginRequest.getUsername());
+		System.out.println(loginRequest.getPassword());
 		if (!(userRepository.existsByUsernameAndPassword(loginRequest.getUsername(), loginRequest.getPassword()))) {
 			return ResponseEntity.badRequest().body(new MessageResponse("ユーザーネームかメールアドレスが間違っています"));
 		}
