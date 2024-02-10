@@ -54,10 +54,8 @@ public class AuthController {
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
-		System.out.println(loginRequest.getUsername());
-		System.out.println(loginRequest.getPassword());
-		if (!(userRepository.existsByUsernameAndPassword(loginRequest.getUsername(), loginRequest.getPassword()))) {
+		User user = userRepository.findByUsername(loginRequest.getUsername());
+		if (!(userRepository.existsByUsername(loginRequest.getUsername()) && encoder.matches(loginRequest.getPassword(), user.getPassword()))) {
 			return ResponseEntity.badRequest().body(new MessageResponse("ユーザーネームかメールアドレスが間違っています"));
 		}
 
