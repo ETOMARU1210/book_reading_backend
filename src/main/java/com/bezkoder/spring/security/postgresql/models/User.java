@@ -16,6 +16,7 @@ import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import com.bezkoder.spring.security.postgresql.models.Role;
 
 @Entity
 @Table( name = "users", 
