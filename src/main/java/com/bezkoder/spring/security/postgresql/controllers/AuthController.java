@@ -53,9 +53,9 @@ public class AuthController {
 	
 
 	@PostMapping("/signin")
-	@CrossOrigin
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) throws Exception {
 
+		System.out.println(loginRequest);
 		if (!(userRepository.existsByUsernameAndPassword(loginRequest.getUsername(), loginRequest.getPassword()))) {
 			return ResponseEntity.badRequest().body(new MessageResponse("ユーザーネームかメールアドレスが間違っています"));
 		}
@@ -77,7 +77,6 @@ public class AuthController {
 	}
 
 	@PostMapping("/signup")
-	@CrossOrigin
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 		if (userRepository.existsByUsernameAndEmail(signUpRequest.getUsername(), signUpRequest.getEmail())) {
 			return ResponseEntity.badRequest().body(new MessageResponse("ユーザーネームかメールアドレスがすでに存在しています"));

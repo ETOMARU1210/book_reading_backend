@@ -15,6 +15,7 @@ import com.bezkoder.spring.security.postgresql.payload.request.BookRequest;
 import com.bezkoder.spring.security.postgresql.payload.request.StatusCompleteRequest;
 import com.bezkoder.spring.security.postgresql.security.services.BookService;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
@@ -29,22 +30,26 @@ public class BookController {
 	}
 	
 	@GetMapping("/all")
+	@CrossOrigin
 	public List<Book> allBooks(){
 		return bookService.allBooks();
 	}
 	
 	@GetMapping("/allunstatus")
+	@CrossOrigin
 	public List<Book> allUnStatusBooks(){
 		return bookService.allUnStatusBooks("未読了");
 	}
 	
 	
 	@GetMapping("/allcompletestatus")
+	@CrossOrigin
 	public List<Book> allCompleteStatusBooks(){
 		return bookService.allCompleteStatusBooks("読了");
 	}
 	
 	@PostMapping("/statuscomplete")
+	@CrossOrigin
 	public void statusComplete(@RequestBody StatusCompleteRequest statusCompleteRequest) {
 		bookService.statusCompleteUpdate(statusCompleteRequest);
 	}
