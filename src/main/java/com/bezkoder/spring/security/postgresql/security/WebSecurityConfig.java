@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import com.bezkoder.spring.security.postgresql.security.jwt.AuthEntryPointJwt;
 import com.bezkoder.spring.security.postgresql.security.jwt.AuthTokenFilter;
@@ -65,11 +66,11 @@ public class WebSecurityConfig{
               .requestMatchers("/api/test/**").permitAll()
               .requestMatchers("/api/books/**").permitAll()
               .anyRequest().authenticated()
-        );
-    
+        );    
     http.authenticationProvider(authenticationProvider());
 
     http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+    http.addFilterAfter(new AuthTokenFilter(), BasicAuthenticationFilter.class);
     
     return http.build();
   }
