@@ -38,6 +38,12 @@ git clone https://github.com/ETOMARU1210/book_reading_frontend.git
 EclipseのBootダッシュボードからlocalにあるbook_reading_backendを起動するかプロジェクトから実行
 ```
 
+# 今後実装したいもの
+
+- 読んだ金額が高い順に並ぶランキング機能
+- 人が読んだものを読みたいリストに追加できる機能
+-  読んだ本ごとに感想を言いあえる機能
+
 # 著者
 
 - ETOMARU1210
